@@ -90,13 +90,13 @@ export default function Home() {
           } sm:block sm:w-64 bg-white shadow-md p-6 lg:static lg:block sm:mb-6`}
         >
           {/* Search Bar */}
-          <div className="mb-6">
+          {/* <div className="mb-6">
             <input
               type="text"
               placeholder="Search..."
               className="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
             />
-          </div>
+          </div> */}
 
           {/* List of Card Names */}
           <ul>
