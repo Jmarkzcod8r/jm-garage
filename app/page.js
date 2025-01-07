@@ -8,7 +8,7 @@ export default function Home() {
     id: i + 1,
     title: `Car ${i + 1}`,
     description: `Description for Car ${i + 1}`,
-    image: i === 0 ? "/pics/blanket.webp" : "", // Add image only for Car 1
+    image: i === 0 ? "/pics/blanket.webp" : i === 1 ? "/pics/wallpaper_nice.jpeg" : "", // Add image for Car 1 and Car 2
   }));
 
   // State to toggle sidebar visibility
