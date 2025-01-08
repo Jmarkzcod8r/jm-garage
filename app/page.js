@@ -1,15 +1,15 @@
-"use client"
+"use client";
+
 import { useState, useRef } from "react";
 import Image from "next/image";
+import cards from "./cardsData";
 
 export default function Home() {
-  // Simulated dynamic data for cards
-  const cards = Array.from({ length: 20 }, (_, i) => ({
-    id: i + 1,
-    title: `Car ${i + 1}`,
-    description: `Description for Car ${i + 1}`,
-    image: i === 0 ? "/pics/blanket.webp" : i === 1 ? "/pics/wallpaper_nice.jpeg" : "", // Add image for Car 1 and Car 2
-  }));
+  // State for modals
+  const [isDescriptionModalOpen, setDescriptionModalOpen] = useState(false);
+  const [isImageModalOpen, setImageModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState({ description: "", images: [] });
+  const [currentImageIndex, setCurrentImageIndex] = useState(0); // State to track the current image index
 
   // State to toggle sidebar visibility
   const [sidebarVisible, setSidebarVisible] = useState(false);
@@ -26,59 +26,81 @@ export default function Home() {
     }
   };
 
+  // Function to open the description modal
+  const handleDescriptionClick = (description) => {
+    setModalContent({ ...modalContent, description });
+    setDescriptionModalOpen(true);
+  };
+
+  // Function to open the image modal
+  const handleImageClick = (images) => {
+    setModalContent({ ...modalContent, images });
+    setCurrentImageIndex(0); // Reset to the first image
+    setImageModalOpen(true);
+  };
+
+  // Sort cards alphabetically by title
+  const sortedCards = [...cards].sort((a, b) =>
+    a.title.localeCompare(b.title)
+  );
+
+  // Function to handle previous image
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === 0 ? modalContent.images.length - 1 : prevIndex - 1
+    );
+  };
+
+  // Function to handle next image
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === modalContent.images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
       <header className="bg-blue-600 text-white py-4 flex justify-between items-center px-6 sm:justify-center">
         <h1 className="text-3xl font-bold">JM Garage</h1>
-        {/* Hamburger Button */}
-        {/* <button
-          onClick={() => setSidebarVisible(!sidebarVisible)}
-          className="lg:hidden text-white focus:outline-none"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            ></path>
-          </svg>
-        </button> */}
       </header>
 
       {/* Main Content */}
       <div className="flex flex-col sm:flex-row p-6 gap-6">
-
-
         {/* Cards Section */}
         <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {cards.map((card, index) => (
+          {sortedCards.map((card, index) => (
             <div
               key={card.id}
               ref={(el) => (cardRefs.current[index] = el)} // Assign ref
               className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition"
             >
-              {/* Image for Car 1 */}
-              {card.image && (
+              {/* Image */}
+              {card.images && card.images.length > 0 && (
                 <div className="mb-4">
-                  <Image
-                    src={card.image}
-                    alt={`Image of ${card.title}`}
-                    width={300}
-                    height={200}
-                    className="object-cover rounded-lg"
-                  />
+                  <button
+                    onClick={() => handleImageClick(card.images)} // Pass the list of images
+                    className="focus:outline-none"
+                  >
+                    <Image
+                      src={card.images[0]} // Display the first image
+                      alt={`Image of ${card.title}`}
+                      width={300}
+                      height={200}
+                      className="object-cover rounded-lg cursor-pointer"
+                    />
+                  </button>
                 </div>
               )}
               <h2 className="text-xl font-semibold mb-2">{card.title}</h2>
-              <p className="text-gray-600">{card.description}</p>
+              <p>₱ {card.price}</p>
+              <p>Stock: {card.stock}</p>
+              <button
+                onClick={() => handleDescriptionClick(card.description)}
+                className="text-blue-500 hover:underline focus:outline-none"
+              >
+                See Description
+              </button>
             </div>
           ))}
         </div>
@@ -89,18 +111,8 @@ export default function Home() {
             sidebarVisible ? "block" : "hidden"
           } sm:block sm:w-64 bg-white shadow-md p-6 lg:static lg:block sm:mb-6`}
         >
-          {/* Search Bar */}
-          {/* <div className="mb-6">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
-            />
-          </div> */}
-
-          {/* List of Card Names */}
           <ul>
-            {cards.map((card, index) => (
+            {sortedCards.map((card, index) => (
               <li
                 key={card.id}
                 onClick={() => handleFocus(index)} // Handle click
@@ -112,6 +124,65 @@ export default function Home() {
           </ul>
         </aside>
       </div>
+
+      {/* Description Modal */}
+      {isDescriptionModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 sm:w-1/2">
+            <h2 className="text-xl font-bold mb-4">Description</h2>
+            <p className="text-gray-700">{modalContent.description}</p>
+            <button
+              onClick={() => setDescriptionModalOpen(false)}
+              className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Image Modal */}
+      {isImageModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white grid text-center items-center justify-center p-6 rounded-lg shadow-lg w-7/12 sm:w-2/4">
+            <h2 className="text-xl font-bold mb-4">Images</h2>
+            <button
+              onClick={() => setImageModalOpen(false)}
+              className="mb-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            >
+              Close
+            </button>
+
+            {/* Display the current image */}
+            <div className="relative bg-white flex justify-center">
+              {/* Left and Right Arrows */}
+              <button
+                onClick={handlePrevImage}
+                className="absolute top-1/2 left-0 transform -translate-y-1/2 p-2 bg-gray-800 text-white rounded-full"
+              >
+                &lt;
+              </button>
+
+              <Image
+                src={modalContent.images[currentImageIndex]}
+                alt={`Image ${currentImageIndex + 1}`}
+                width={300}
+                height={200}
+                className="object-cover rounded-lg"
+              />
+
+                <button
+                onClick={handleNextImage}
+                className="absolute top-1/2 right-0 transform -translate-y-1/2 p-2 bg-gray-800 text-white rounded-full"
+              >
+                &gt;
+              </button>
+            </div>
+
+            
+          </div>
+        </div>
+      )}
     </div>
   );
 }
