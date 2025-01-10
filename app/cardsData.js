@@ -32,7 +32,7 @@ const cards = [
       id: 4,
       title: "Luxxe Renew.",
       description: "Revitalize your health with LUXXE RENEW, an all-in-one antioxidant capsule with 8 powerful berries to fight aging, boost immunity, and enhance wellness.",
-      images: ["/pics/Luxxe--Renew.webp",], // List of images
+      images: ["/pics/Luxxe--Renew.jpeg",], // List of images
       price: 2980, stock: 2, connect: "639305429453",
     }
   ];
