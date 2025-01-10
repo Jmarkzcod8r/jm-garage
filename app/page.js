@@ -27,10 +27,17 @@ export default function Home() {
   };
 
   // Function to open the description modal
-  const handleDescriptionClick = (description) => {
-    setModalContent({ ...modalContent, description });
-    setDescriptionModalOpen(true);
-  };
+// Function to open the description modal with the card object
+const handleDescriptionClick = (card) => {
+  setModalContent({
+    ...modalContent,
+    title: card.title, // Add title or other properties
+    description: card.description,
+    connect: card.connect,
+  });
+  setDescriptionModalOpen(true);
+};
+
 
   // Function to open the image modal
   const handleImageClick = (images) => {
@@ -73,34 +80,37 @@ export default function Home() {
             <div
               key={card.id}
               ref={(el) => (cardRefs.current[index] = el)} // Assign ref
-              className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition"
+              className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition text-center"
             >
               {/* Image */}
               {card.images && card.images.length > 0 && (
-                <div className="mb-4">
-                  <button
-                    onClick={() => handleImageClick(card.images)} // Pass the list of images
-                    className="focus:outline-none"
-                  >
-                    <Image
-                      src={card.images[0]} // Display the first image
-                      alt={`Image of ${card.title}`}
-                      width={300}
-                      height={200}
-                      className="object-cover rounded-lg cursor-pointer"
-                    />
-                  </button>
-                </div>
+               <div className="mb-4 ">
+               <button 
+                 onClick={() => handleImageClick(card.images)} // Pass the list of images
+                 className="p-2 h-[10em] flex items-center justify-center w-full"
+               >
+                 <Image
+                   src={card.images[0]} // Display the first image
+                   alt={`Image of ${card.title}`}
+                   width={150} // Use dynamic sizing
+                   height={100} // Use dynamic sizing
+                  //  sizes="(max-width: 600px) 100vw, 50vw" // Responsive sizes
+                   className="object-cover rounded-lg cursor-pointer max-h-full max-w-full"
+                 />
+               </button>
+             </div>
+             
               )}
               <h2 className="text-xl font-semibold mb-2">{card.title}</h2>
               <p>₱ {card.price}</p>
               <p>Stock: {card.stock}</p>
               <button
-                onClick={() => handleDescriptionClick(card.description)}
-                className="text-blue-500 hover:underline focus:outline-none"
-              >
-                See Description
-              </button>
+                    onClick={() => handleDescriptionClick(card)} // Pass the full card object
+                    className="text-blue-500 hover:underline focus:outline-none"
+                  >
+                    Details
+                  </button>
+
             </div>
           ))}
         </div>
@@ -126,20 +136,25 @@ export default function Home() {
       </div>
 
       {/* Description Modal */}
-      {isDescriptionModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 sm:w-1/2">
-            <h2 className="text-xl font-bold mb-4">Description</h2>
-            <p className="text-gray-700">{modalContent.description}</p>
-            <button
-              onClick={() => setDescriptionModalOpen(false)}
-              className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-            >
-              Close
-            </button>
+     {/* Description Modal */}
+        {isDescriptionModalOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 sm:w-1/2">
+              <h2 className="text-xl font-bold mb-4">{modalContent.title}</h2> {/* Display title */}
+              <p className="text-gray-700">{modalContent.description}</p> {/* Display description */}
+              {/* <h2 className="text-xl font-bold my-4">Connect</h2> */}
+              <h3 className="text-l font-bold my-4">Ready to purchase? Contact me @:</h3>
+              <p className="text-gray-700">{modalContent.connect}</p>
+              <button
+                onClick={() => setDescriptionModalOpen(false)}
+                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+              >
+                Close
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
 
       {/* Image Modal */}
       {isImageModalOpen && (
