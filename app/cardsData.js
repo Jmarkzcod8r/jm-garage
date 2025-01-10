@@ -3,7 +3,7 @@ const cards = [
       id: 1,
       title: "Linen Blanket",
       description: "A versatile and durable mat designed for everyday use.",
-      images: ["/pics/blanket.webp", "/pics/wallpaper_nice.jpeg"], // List of images
+      images: ["/pics/blanket.webp", "/pics/wallpaper_nice.jpeg", "linen-blanket.jpg"], // List of images
       price: 80,
       stock: 3,
     },
