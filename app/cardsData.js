@@ -25,14 +25,14 @@ const cards = [
     id: 3,
     title: "Luxxe Protect",
     description: "Boost your health with Luxxe Protect Pure Grapeseed Extract! Packed with powerful antioxidants, it supports heart, brain, and overall wellness.",
-    images: ["/pics/Protect.webp",], // List of images
+    images: ["/pics/Luxxe-Protect.webp",], // List of images
     price: 1000,  stock: 3, connect: "639305429453",
   },
   {
     id: 4,
-    title: "Luxxe Renew.",
+    title: "Luxxe Renew",
     description: "Revitalize your health with LUXXE RENEW, an all-in-one antioxidant capsule with 8 powerful berries to fight aging, boost immunity, and enhance wellness.",
-    images: ["/pics/Luxxe-Renew.jpg",], // List of images
+    images: ["/pics/Luxxe-Renew.webp",], // List of images
     price: 2980, stock: 2, connect: "639305429453",
   }
 ];
