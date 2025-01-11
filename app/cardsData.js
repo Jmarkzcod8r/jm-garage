@@ -40,7 +40,7 @@ const cards = [
     title: "Safety Shoes (US-9)",
     description: "Never used! This particular item is too big for the seller. That's why this is still in good perfect condition. ",
     images: ["/pics/safety-shoes-skechers.webp","/pics/safety-shoes-US-9.webp","/pics/safety-shoes-size.webp"],
-    price: 2980, stock: 1, connect: "639305429453",
+    price: 980, stock: 1, connect: "639305429453",
   }
 ];
 
