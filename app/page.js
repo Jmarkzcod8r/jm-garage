@@ -71,7 +71,7 @@ export default function Home() {
       {/* Main Content */}
       <div className="flex flex-col sm:flex-row p-6 gap-6">
         {/* Cards Section */}
-        <div className="flex-1 grid grid-cols-2 sm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="flex-1 grid grid-cols-2 sm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
           {sortedCards.map((card, index) => (
             <div
               key={card.id}
