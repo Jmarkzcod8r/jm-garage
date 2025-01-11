@@ -71,7 +71,7 @@ export default function Home() {
       {/* Main Content */}
       <div className="flex flex-col sm:flex-row p-6 gap-6">
         {/* Cards Section */}
-        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex-1 grid grid-cols-2 sm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {sortedCards.map((card, index) => (
             <div
               key={card.id}
@@ -88,8 +88,8 @@ export default function Home() {
                     <Image
                       src={card.images[0]} // Display the first image
                       alt={`Image of ${card.title}`}
-                      width={150}
-                      height={100}
+                      width={300}
+                      height={200}
                       className="object-cover rounded-lg cursor-pointer max-h-full max-w-full"
                     />
                   </button>

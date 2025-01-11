@@ -34,6 +34,13 @@ const cards = [
     description: "Revitalize your health with LUXXE RENEW, an all-in-one antioxidant capsule with 8 powerful berries to fight aging, boost immunity, and enhance wellness.",
     images: ["/pics/Luxxe-Renew.webp",], // List of images
     price: 2980, stock: 2, connect: "639305429453",
+  },
+  {
+    id: 5,
+    title: "Safety Shoes (US-9)",
+    description: "Never used! This particular item is too big for the seller. That's why this is still in good perfect condition. ",
+    images: ["/pics/safety-shoes-skechers.webp","/pics/safety-shoes-US-9.webp","/pics/safety-shoes-size.webp"],
+    price: 2980, stock: 1, connect: "639305429453",
   }
 ];
 
