@@ -17,7 +17,7 @@ const cards = [
       "/pics/mat.webp",
     
     ], // List of images
-    price: 200,
+    price: 300,
     stock: 1, connect: "639305429453",
   }
   ,
